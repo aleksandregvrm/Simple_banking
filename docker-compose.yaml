@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: bankingGo2
+      POSTGRES_PASSWORD: bankingGo2
+      POSTGRES_DB: bankingGo2
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data_omno_bankingGo2:/var/lib/postgresql/data
+
+volumes:
+  postgres_data_omno_bankingGo2:
