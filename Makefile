@@ -33,4 +33,4 @@ forcedatabaseVersion:
 sqlc: 
 	sqlc generate	
 
-.PHONY: confirmMigrateup migrateup migratedown createNewMigration migrateupForce forcedatabaseVersion sqlc
+.PHONY: confirmMigrateup migrateup migratedown createNewMigration migrateupForce forcedatabaseVersion sqlc tidy

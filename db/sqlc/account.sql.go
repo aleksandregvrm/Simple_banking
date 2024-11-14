@@ -60,6 +60,40 @@ func (q *Queries) GetAccount(ctx context.Context, id int64) (Account, error) {
 	return i, err
 }
 
+const getAllAccounts = `-- name: GetAllAccounts :many
+SELECT id, owner, balance, currency, created_at FROM accounts
+ORDER BY id
+`
+
+func (q *Queries) GetAllAccounts(ctx context.Context) ([]Account, error) {
+	rows, err := q.db.QueryContext(ctx, getAllAccounts)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Account
+	for rows.Next() {
+		var i Account
+		if err := rows.Scan(
+			&i.ID,
+			&i.Owner,
+			&i.Balance,
+			&i.Currency,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const listAllAccounts = `-- name: ListAllAccounts :many
 SELECT id, owner, balance, currency, created_at FROM accounts 
 ORDER BY id
