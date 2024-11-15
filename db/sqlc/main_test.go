@@ -13,10 +13,9 @@ import (
 var TestQueries *Queries
 
 func TestMain(m *testing.M) {
-
 	dbDriver := "postgres"
 	dbSource := "postgres://bankingGo2:bankingGo2@localhost:5433/bankingGo2?sslmode=disable"
-	fmt.Println(dbDriver, dbSource)
+
 	if dbDriver == "" || dbSource == "" {
 		log.Fatal("DB_DRIVER and POSTGRES_SERVICE_URL must be set as environment variables")
 	}

@@ -29,8 +29,12 @@ migratedown:
 forcedatabaseVersion:
 	migrate -path ./db/migration -database "postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(POSTGRES_DB)?sslmode=disable" force 1
 
-# Generate Go files with SQL queries
+# Generate Go files with SQL queries...
 sqlc: 
 	sqlc generate	
 
-.PHONY: confirmMigrateup migrateup migratedown createNewMigration migrateupForce forcedatabaseVersion sqlc tidy
+# Running Unit test without caching...
+test:
+	go test -count=1  -v -cover ./...
+
+.PHONY: confirmMigrateup migrateup migratedown createNewMigration migrateupForce forcedatabaseVersion sqlc test
